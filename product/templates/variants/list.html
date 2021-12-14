@@ -25,15 +25,17 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>Id</th>
                         <th>Title</th>
                         <th>Description</th>
+                        <th>Active</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for variant in variant_list %}
                         <tr>
+                            <td>{{ variant.id }}</td>
                             <td>{{ variant.title }}</td>
                             <td>{{ variant.description }}</td>
                             <td>{{ variant.active }}</td>
