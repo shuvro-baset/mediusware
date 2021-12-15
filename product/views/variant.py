@@ -35,6 +35,7 @@ class VariantView(BaseVariantView, ListView):
 
 
 class VariantCreateView(BaseVariantView, CreateView):
+    print("I am hitting")
 
     form_class = VariantForm
     model = Variant
@@ -44,6 +45,7 @@ class VariantCreateView(BaseVariantView, CreateView):
     def form_valid(self, form):
         print("I am hitting")
         form.instance.user = self.request.user
+        # super(BaseVariantView, self).form_valid(form)
         return super().form_valid(form)
 
 
