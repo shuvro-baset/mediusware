@@ -21,9 +21,20 @@ class CreateProductView(generic.TemplateView):
         return context
 
 
-
 class ProductsView(generic.TemplateView):
     template_name = 'products/list.html'
+
+    def get(self, request):
+        products = ProductVariantPrice.objects.all()
+        print("products: ", products)
+        context = {
+            'products': products
+        }
+        return render(request, self.template_name, context=context)
+
+
+class FilterProductsView(generic.TemplateView):
+    template_name = 'products/filtered_products.html'
 
     def get(self, request):
         products = ProductVariantPrice.objects.all()
