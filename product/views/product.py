@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.views.generic import ListView, CreateView, UpdateView
 
-from product.models import Variant, Product, ProductImage
+from product.models import Variant, Product, ProductImage, ProductVariantPrice
 
 
 class BaseProductView(generic.View):
@@ -52,7 +52,7 @@ class ProductView(BaseProductView, ListView):
         for key in self.request.GET:
             if self.request.GET.get(key):
                 filter_string[key] = self.request.GET.get(key)
-        return Product.objects.filter(**filter_string)
+        return ProductVariantPrice.objects.filter(**filter_string)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
