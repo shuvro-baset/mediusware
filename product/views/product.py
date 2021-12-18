@@ -32,14 +32,18 @@ class ProductsView(generic.TemplateView):
         }
         return render(request, self.template_name, context=context)
 
+    def post(self, request):
+        if request.method == "POST":
+            name = request.POST.get('title')
+            print("name: ", name)
+            product_ins = ProductVariantPrice.objects.all()
+            products = product_ins.filter(product_id__title=name)
+            print(products)
 
-class FilterProductsView(generic.TemplateView):
-    template_name = 'products/filtered_products.html'
-
-    def get(self, request):
-        products = ProductVariantPrice.objects.all()
-        print("products: ", products)
         context = {
             'products': products
         }
-        return render(request, self.template_name, context=context)
+        return render(request, 'products/filtered_products.html', context=context)
+
+# class FilterProductsView(generic.TemplateView):
+#     template_name = 'products/filtered_products.html'
