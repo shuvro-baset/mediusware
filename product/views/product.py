@@ -3,7 +3,7 @@ from django.views import generic
 from django.views.generic import ListView, CreateView, UpdateView
 from django.core.paginator import Paginator
 from product.models import Variant, Product, ProductImage, ProductVariantPrice
-
+from django.db.models import Q
 
 class BaseProductView(generic.View):
     model = Product
@@ -20,18 +20,17 @@ class CreateProductView(generic.TemplateView):
         context['variants'] = list(variants.all())
         return context
 
-
+# showing products and filter products
 class ProductsView(generic.TemplateView):
     template_name = 'products/list.html'
 
     def get(self, request):
+        # getting products data from ProductVariantPrice model
         products = ProductVariantPrice.objects.all()
-        print("products: ", products)
         # todo: pagination start
         paginator = Paginator(products, 10)
         page_number = request.GET.get("page", 1)
         page_obj = paginator.get_page(page_number)
-        print("ad", page_obj, paginator)
         # todo: pagination end
         context = {
             # 'products': products,
@@ -39,17 +38,33 @@ class ProductsView(generic.TemplateView):
         }
         return render(request, self.template_name, context=context)
 
+    # post method for filtering
     def post(self, request):
         if request.method == "POST":
+            # getting filter data
             name = request.POST.get('title')
             price_from = request.POST.get('price_from')
             price_to = request.POST.get('price_to')
-            print("name: ", name)
             product_ins = ProductVariantPrice.objects.all()
-            products = product_ins.filter(product__title__icontains=name, price__gte=price_from, price__lte=price_to)
-            print(products)
+            # condition for not provided price
+            if None or '' in [price_to, price_from]:
+                products = product_ins.filter(product__title__icontains=name)
+                paginator = Paginator(products, 10)
+                page_number = request.GET.get("page", 1)
+                page_obj = paginator.get_page(page_number)
+                print("filter by name: ", page_obj)
+                context = {
+                    'page_obj': page_obj
+                }
+                return render(request, 'products/filtered_products.html', context=context)
+            else:
+                products = product_ins.filter(Q(product__title__icontains=name) | Q(price__gte=price_from) | Q(price__lte=price_to))
 
-            context = {
-                'products': products
-            }
-            return render(request, 'products/filtered_products.html', context=context)
+                paginator = Paginator(products, 10)
+                page_number = request.GET.get("page", 1)
+                page_obj = paginator.get_page(page_number)
+
+                context = {
+                    'page_obj': page_obj
+                }
+                return render(request, 'products/filtered_products.html', context=context)

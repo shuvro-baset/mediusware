@@ -15,8 +15,5 @@ urlpatterns = [
     # Products URLs
     path('create/', CreateProductView.as_view(), name='create.product'),
     path('list/', ProductsView.as_view(), name='list.product'),
-    # path('filter-product-list/', ProductsView.as_view(), name='filter-product')
-    # path('list/', TemplateView.as_view(template_name='products/list.html', extra_context={
-    #     'product': True
-    # }), name='list.product'),
+
 ]

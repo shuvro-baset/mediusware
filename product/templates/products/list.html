@@ -100,22 +100,22 @@
             <div class="row justify-content-between">
                 <div class="col-md-6">
                     <div class="pagination pagination-centered">
-                        <ul>
+                        <ul style="list-style: none;" class="d-flex ">
                             <!-- <span class="step-links">-->
                             {% if page_obj.has_previous %}
-                                <li><a href="?page=1" class="first">&laquo; first</a></li>
-                                <li><a href="?page={{ page_obj.previous_page_number }}" class="previous">previous</a>
+                                <li class="px-2"><a href="?page=1" class="first">&laquo; first</a></li>
+                                <li class="px-2"><a href="?page={{ page_obj.previous_page_number }}" class="previous">previous</a>
                                 </li>
                             {% endif %}
 
                             <!-- <span class="current">-->
-                            <li><span class="page">Page</span> <span>{{ page_obj.number }}</span></li>
-                            <li><span class="page">of</span> <span>{{ page_obj.paginator.num_pages }}</span></li>
+                            <li class="px-2"><span class="page">Page</span> <span>{{ page_obj.number }}</span></li>
+                            <li class="px-2"><span class="page">of</span> <span>{{ page_obj.paginator.num_pages }}</span></li>
                             <!--  </span>-->
 
                             {% if page_obj.has_next %}
-                                <li><a href="?page={{ page_obj.next_page_number }}" class="next">next</a></li>
-                                <li><a href="?page={{ page_obj.paginator.num_pages }}" class="last">last &raquo;</a>
+                                <li class="px-2"><a href="?page={{ page_obj.next_page_number }}" class="next">next</a></li>
+                                <li class="px-2"><a href="?page={{ page_obj.paginator.num_pages }}" class="last">last &raquo;</a>
                                 </li>
                             {% endif %}
                             <!--   </span>-->
