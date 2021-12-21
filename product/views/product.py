@@ -96,26 +96,20 @@ class ProductsView(generic.TemplateView):
                 return render(request, 'products/filtered_products.html', context=context)
 
 
+# show single product and update product data
 class ProductsEditView(generic.TemplateView):
     template_name = 'products/single_product.html'
 
     def get(self, request, id):
+        # getting product data
         product = ProductVariantPrice.objects.get(id=id)
-
-
-        product_ins = Product.objects.filter(id=id).first()
-        print("title: ",product_ins.title)
-
-        variant_ins = ProductVariant.objects.filter(product_id=id).first()
-        print("variant+_ins: ",variant_ins.variant_title)
         context = {
             "product": product
         }
-        # print(product.price)
         return render(request, 'products/single_product.html', context=context)
+
     def post(self, request, id):
-        print("product update: ")
-        id = id
+        # receiving input value for update product info
         title = request.POST.get("title")
         desc = request.POST.get("desc")
         sku = request.POST.get("sku")
@@ -123,23 +117,27 @@ class ProductsEditView(generic.TemplateView):
         size = request.POST.get("size")
         style = request.POST.get("style")
 
+        # getting product instance
         product_ins = Product.objects.filter(id=id).first()
+        # update product title, description, sku
         product_ins.title = title
         product_ins.description = desc
         product_ins.sku = sku
         product_ins.save()
 
+        # getting variant instance and update product color
         variant_ins_color = ProductVariant.objects.filter(product_id=id, variant_id=1).first()
         variant_ins_color.variant_title = color
         variant_ins_color.save()
 
+        # getting variant instance and update product size
         variant_ins_size = ProductVariant.objects.filter(product_id=id, variant_id=2).first()
         variant_ins_size.variant_title = size
         variant_ins_size.save()
 
+        # getting variant instance and update product style
         variant_ins_style = ProductVariant.objects.filter(product_id=id, variant_id=3).first()
         variant_ins_style.variant_title = style
         variant_ins_style.save()
 
         return redirect('/product/list')
-
