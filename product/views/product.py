@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.views.generic import ListView, CreateView, UpdateView
 from django.core.paginator import Paginator
-from product.models import Variant, Product, ProductImage, ProductVariantPrice
+from product.models import Variant, Product, ProductImage, ProductVariantPrice, ProductVariant
 from django.db.models import Q
 
 class BaseProductView(generic.View):
@@ -27,6 +27,15 @@ class ProductsView(generic.TemplateView):
     def get(self, request):
         # getting products data from ProductVariantPrice model
         products = ProductVariantPrice.objects.all()
+        # getting variants
+        variants = ProductVariant.objects.all()
+        colors = []
+        for v in variants:
+            if v.variant_id==1:
+                color = v.variant_title
+                if color not in colors:
+                    colors.append(color)
+        print("variants: ", colors)
         # todo: pagination start
         paginator = Paginator(products, 10)
         page_number = request.GET.get("page", 1)
@@ -34,7 +43,8 @@ class ProductsView(generic.TemplateView):
         # todo: pagination end
         context = {
             # 'products': products,
-            "page_obj": page_obj
+            "page_obj": page_obj,
+            "colors": colors
         }
         return render(request, self.template_name, context=context)
 

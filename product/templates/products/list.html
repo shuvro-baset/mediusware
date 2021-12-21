@@ -19,7 +19,18 @@
                 <div class="col-md-2">
                     <select name="variant" id="" class="form-control">
                         <option selected disabled>--Select A Variant--</option>
-
+                        <option selected disabled>Color</option>
+                        {% for c in colors %}
+                        <option> {{ c }} </option>
+                        {% endfor %}
+                        <option selected disabled>Size</option>
+                        {% for c in colors %}
+                        <option> {{ c }} </option>
+                        {% endfor %}
+                        <option selected disabled>Style</option>
+                        {% for c in colors %}
+                            <option> {{ c }} </option>
+                        {% endfor %}
                     </select>
                 </div>
 
