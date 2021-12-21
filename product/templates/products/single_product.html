@@ -13,27 +13,27 @@
             {% csrf_token %}
             <div class="form-group">
                 <label>Product Title</label>
-                <input type="text" class="form-control" value="{{ product.product.title }}">
+                <input name="title" type="text" class="form-control" value="{{ product.product.title }}">
             </div>
             <div class="form-group">
                 <label>Product Description</label> <br>
-                <textarea name="" id="" class="w-100 form-control" rows="4">{{ product.product.description }}</textarea>
+                <textarea name="desc" id="" class="w-100 form-control" rows="4">{{ product.product.description }}</textarea>
             </div>
             <div class="form-group">
                 <label>Product sku</label>
-                <input type="text" class="form-control" value="{{ product.product.sku }}">
+                <input name="sku" type="text" class="form-control" value="{{ product.product.sku }}">
             </div>
             <div class="form-group">
                 <label>Product color</label>
-                <input type="text" class="form-control" value="{{ product.product_variant_one.variant_title }}">
+                <input name="color" type="text" class="form-control" value="{{ product.product_variant_one.variant_title }}">
             </div>
             <div class="form-group">
                 <label>Product Size</label>
-                <input type="text" class="form-control" value="{{ product.product_variant_two.variant_title }}">
+                <input name="size" type="text" class="form-control" value="{{ product.product_variant_two.variant_title }}">
             </div>
             <div class="form-group">
                 <label>Product Style</label>
-                <input type="text" class="form-control" value="{{ product.product_variant_three.variant_title }}">
+                <input name="style" type="text" class="form-control" value="{{ product.product_variant_three.variant_title }}">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

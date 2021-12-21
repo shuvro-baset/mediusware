@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import ListView, CreateView, UpdateView
 from django.core.paginator import Paginator
@@ -102,8 +102,44 @@ class ProductsEditView(generic.TemplateView):
     def get(self, request, id):
         product = ProductVariantPrice.objects.get(id=id)
 
+
+        product_ins = Product.objects.filter(id=id).first()
+        print("title: ",product_ins.title)
+
+        variant_ins = ProductVariant.objects.filter(product_id=id).first()
+        print("variant+_ins: ",variant_ins.variant_title)
         context = {
             "product": product
         }
         # print(product.price)
         return render(request, 'products/single_product.html', context=context)
+    def post(self, request, id):
+        print("product update: ")
+        id = id
+        title = request.POST.get("title")
+        desc = request.POST.get("desc")
+        sku = request.POST.get("sku")
+        color = request.POST.get("color")
+        size = request.POST.get("size")
+        style = request.POST.get("style")
+
+        product_ins = Product.objects.filter(id=id).first()
+        product_ins.title = title
+        product_ins.description = desc
+        product_ins.sku = sku
+        product_ins.save()
+
+        variant_ins_color = ProductVariant.objects.filter(product_id=id, variant_id=1).first()
+        variant_ins_color.variant_title = color
+        variant_ins_color.save()
+
+        variant_ins_size = ProductVariant.objects.filter(product_id=id, variant_id=2).first()
+        variant_ins_size.variant_title = size
+        variant_ins_size.save()
+
+        variant_ins_style = ProductVariant.objects.filter(product_id=id, variant_id=3).first()
+        variant_ins_style.variant_title = style
+        variant_ins_style.save()
+
+        return redirect('/product/list')
+
