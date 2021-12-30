@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Variant(models.Model):
     title = models.CharField(max_length=40)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     active = models.BooleanField(default=True)
 
 

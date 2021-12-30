@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.views import generic
 from django.views.generic import ListView, CreateView, UpdateView
 
@@ -34,7 +35,18 @@ class VariantView(BaseVariantView, ListView):
 
 
 class VariantCreateView(BaseVariantView, CreateView):
-    pass
+    print("I am hitting")
+
+    form_class = VariantForm
+    model = Variant
+    template_name = 'variants/create.html'
+    success_url = '/product/variants'
+
+    def form_valid(self, form):
+        print("I am hitting")
+        form.instance.user = self.request.user
+        # super(BaseVariantView, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class VariantEditView(BaseVariantView, UpdateView):

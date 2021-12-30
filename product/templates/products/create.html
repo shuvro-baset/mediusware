@@ -3,13 +3,75 @@
 {% block title %} Create Product {% endblock %}
 
 {% block content %}
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Create Product</h1>
-    <a href="{% url 'product:create.product' %}" class="float-right btn btn-primary">All Product</a>
-</div>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Create Product</h1>
+        <a href="{% url 'product:create.product' %}" class="float-right btn btn-primary">All Product</a>
+    </div>
 
-<div id="app">
-    <create-product :variants="{{variants|safe}}"></create-product>
-</div>
-
+    <div id="app">
+        <create-product :variants="{{variants|safe}}"></create-product>
+    </div>
+{#    <div class="row justify-content-center">#}
+{#        <form class="col-md-6" method="POST" novalidate>#}
+{#            {% csrf_token %}#}
+{#            <div class="card shadow mb-4">#}
+{#                <div class="card-body">#}
+{#                    <div class="form-group">#}
+{#                        <label>Product Tile</label>#}
+{#                        <input type="text" name="product_tile" placeholder="Product Tile">#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label>Product Sku</label>#}
+{#                        <input type="text" name="product_sku" placeholder="Product Sku">#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label>Product Description</label>#}
+{#                        <input type="text" name="product_desc" placeholder="Product Description">#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label>Product Image</label>#}
+{#                        <input type="file" name="product_img">#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{#                <div class="card-footer">#}
+{#                    <button type="submit" class="btn btn-primary">Save</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#        <form class="col-md-6" method="POST" novalidate>#}
+{#            <div class="card shadow mb-4">#}
+{#                <div class="card-body">#}
+{#                    {% csrf_token %}#}
+{#                    <div class="form-group">#}
+{#                        <label>Select Your Product </label>#}
+{#                        <select class="form-group" name="" id="">#}
+{#                            {% for pr in products %}#}
+{#                                <option value="{{ pr.id }}" name="product_id">{{ pr.title|truncatechars:20 }}</option>#}
+{#                            {% endfor %}#}
+{##}
+{#                        </select>#}
+{#                    </div>#}
+{#                    {% for var in variants %}#}
+{#                        <div class="form-group">#}
+{#                            <label>Product {{ var.title }} </label>#}
+{#                            <input type="text" name="{{ var.title }}">#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                    <div class="form-group">#}
+{#                        <label>Product Price </label>#}
+{#                        <input type="number" name="price">#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label>Product Stock </label>#}
+{#                        <input type="number" name="stock">#}
+{#                    </div>#}
+{##}
+{#                    <div class="card-footer">#}
+{#                        <button type="submit" class="btn btn-primary">Save</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
 {% endblock %}
